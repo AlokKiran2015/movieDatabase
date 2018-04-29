@@ -1,14 +1,20 @@
-$(document).ready(() => {
-  $('#searchForm').on('submit', (e) => {
+
+$(document).ready(function(){
+  $('#searchForm').on('submit', function(e){
     let searchText = $('#searchText').val();
     getMovies(searchText);
-    e.preventDefault();
+	e.preventDefault();
+ 
   });
 });
 
+
+
+
+
 function getMovies(searchText){
-  axios.get("http://www.omdbapi.com/?apikey=ab9c36ae&s="+searchText)
-    .then((response) => {
+ axios.get("http://www.omdbapi.com/?apikey=ab9c36ae&s="+searchText)
+    .then(function(response){
 
       let movies = response.data.Search;
       let output = '';
@@ -16,8 +22,8 @@ function getMovies(searchText){
         output += `
           <div class="col-md-3">
             <div class="well text-center">
-              <img src="${movie.Poster}" style="border-radius:20px;">
-              <h5>${movie.Title}</h5>
+              <img src="${movie.Poster}" style="border-radius:10px;">
+              <h5 style="color: green;">${movie.Title}</h5>
               <a onclick="movieSelected('${movie.imdbID}')" class="btn btn-primary" href="#">Movie Details</a>
             </div>
           </div>
@@ -26,8 +32,8 @@ function getMovies(searchText){
 
       $('#movies').html(output);
     })
-    .catch((err) => {
-    console.log(err);;
+    .catch(function(err){
+    alert(err);
     });
 }
 
@@ -41,7 +47,7 @@ function getMovie(){
   let movieId = sessionStorage.getItem('movieId');
 
   axios.get("http://www.omdbapi.com/?apikey=ab9c36ae&i="+movieId)
-    .then((response) => {
+    .then(function(response) {
 
       let movie = response.data;
 
@@ -52,14 +58,14 @@ function getMovie(){
           </div>
           <div class="col-md-8">
             <h2>${movie.Title}</h2>
-            <ul class="list-group">
-              <li class="list-group-item"><strong>Genre:</strong> ${movie.Genre}</li>
-              <li class="list-group-item"><strong>Released:</strong> ${movie.Released}</li>
-              <li class="list-group-item"><strong>Rated:</strong> ${movie.Rated}</li>
-              <li class="list-group-item"><strong>IMDB Rating:</strong> ${movie.imdbRating}</li>
-              <li class="list-group-item"><strong>Director:</strong> ${movie.Director}</li>
-              <li class="list-group-item"><strong>Writer:</strong> ${movie.Writer}</li>
-              <li class="list-group-item"><strong>Actors:</strong> ${movie.Actors}</li>
+            <ul class="list-group" >
+              <li class="list-group-item list-group-item-success"><strong style="color:blue;">Genre:</strong> ${movie.Genre}</li>
+              <li class="list-group-item list-group-item-success"><strong style="color:blue;">Released:</strong> ${movie.Released}</li>
+              <li class="list-group-item list-group-item-success"><strong style="color:blue;">Rated:</strong> ${movie.Rated}</li>
+              <li class="list-group-item list-group-item-success"><strong style="color:blue;">IMDB Rating:</strong> ${movie.imdbRating}</li>
+              <li class="list-group-item list-group-item-success"><strong style="color:blue;">Director:</strong> ${movie.Director}</li>
+              <li class="list-group-item list-group-item-success"><strong style="color:blue;">Writer:</strong> ${movie.Writer}</li>
+              <li class="list-group-item list-group-item-success"><strong style="color:blue;">Actors:</strong> ${movie.Actors}</li>
             </ul>
           </div>
         </div>
@@ -68,15 +74,15 @@ function getMovie(){
             <h3>Plot</h3>
             ${movie.Plot}
             <hr>
-            <a href="http://imdb.com/title/${movie.imdbID}" target="_blank" class="btn btn-primary">View IMDB</a>
-            <a href="index.html" class="btn btn-default">Go Back To Search</a>
+    
+            <a href="index.html" class="btn btn-primary">Home</a>
           </div>
         </div>
       `;
 
       $('#movie').html(output);
     })
-    .catch((err) => {
+    .catch(function(err){
       console.log(err);
     });
 }

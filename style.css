@@ -16,7 +16,7 @@
 }
 body{
   background-color: #008080;
-  background-image: url("../back3.jpeg");
+  background-image: url("back.jpg");
 
 }
 a{
@@ -27,4 +27,15 @@ color: white;
 }
 img{
   border-radius: 20px;
+}
+h3{
+color:black;
+}
+h5{
+color: green;
+
+}
+h2{
+float: right;
+margin-right:0px;
 }
